@@ -23,7 +23,7 @@
 //
 
 import Foundation
-
+import Dispatch
 
 // Don't know what sort of synchronization is perfect?
 // try them all!
@@ -161,7 +161,11 @@ public enum SynchronizationType : CustomStringConvertible, CustomDebugStringConv
         case .serialQueue:
             return QueueSerialSynchronization()
         case .nsObjectLock:
-            return NSObjectLockSynchronization()
+            #if os(Linux)
+                return QueueSerialSynchronization()
+            #else
+                return NSObjectLockSynchronization()
+            #endif
         case .nsLock:
             return NSLockSynchronization()
         case .nsRecursiveLock:
@@ -325,6 +329,7 @@ open class QueueSerialSynchronization : SynchronizationProtocol {
     
 }
 
+#if !os(Linux)
 open class NSObjectLockSynchronization : SynchronizationProtocol {
 
     var lock : AnyObject
@@ -339,9 +344,12 @@ open class NSObjectLockSynchronization : SynchronizationProtocol {
     }
     
     func synchronized<T>(_ block:@escaping () -> T) -> T {
-        return SYNCHRONIZED(self.lock) { () -> T in
-            return block()
-        }
+        let lock_result = objc_sync_enter(lock)
+        assert(Int(lock_result) == OBJC_SYNC_SUCCESS,"Failed to lock object!")
+        let retVal: T = block()
+        let exit_result = objc_sync_exit(lock)
+        assert(Int(exit_result) == OBJC_SYNC_SUCCESS,"Failed to release object!")
+        return retVal
     }
     
     public final func lockAndModify<T>(
@@ -362,6 +370,7 @@ open class NSObjectLockSynchronization : SynchronizationProtocol {
     }
     
 }
+#endif
 
 func synchronizedWithLock<T>(_ l: NSLocking, closure:  ()->T) -> T {
     l.lock()

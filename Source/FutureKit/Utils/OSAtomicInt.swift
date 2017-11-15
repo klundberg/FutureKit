@@ -22,10 +22,9 @@
 // THE SOFTWARE.
 //
 
+#if !os(Linux)
+
 import Foundation
-
-
-
 
 open class OSAtomicInt32  {
     
@@ -41,6 +40,7 @@ open class OSAtomicInt32  {
     }
 
     open func increment() -> Int32 {
+        
         return OSAtomicIncrement32(__value.unsafe_pointer)
     }
     open func decrement() -> Int32 {
@@ -104,3 +104,5 @@ open class OSAtomicInt64 {
         return OSAtomicCompareAndSwap64Barrier(value,thenReplaceWith,__value.unsafe_pointer)
     }
 }
+
+#endif

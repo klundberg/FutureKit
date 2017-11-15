@@ -25,26 +25,10 @@
 import Foundation
 import Dispatch
 
-/// Dummy class for linux support
-class LinuxManagedObjectContext: NSObject {
-
-    enum ConcurrencyType : UInt {
-        case privateQueueConcurrencyType
-        case mainQueueConcurrencyType
-    }
-
-    var concurrencyType: ConcurrencyType = .mainQueueConcurrencyType
-
-    func perform(_ block: @escaping () -> Void) {
-        DispatchQueue.main.async(execute: block)
-    }
-}
-
-#if os(Linux)
-typealias NSManagedObjectContext = LinuxManagedObjectContext
-#else
-import CoreData
+#if !os(Linux)
+    import CoreData
 #endif
+
 
 final public class Box<T> {
     public let value: T
@@ -161,11 +145,15 @@ public extension Date {
     }
 }
 
+#if os(Linux)
+    internal let NSEC_PER_SEC = 1_000_000_000
+#endif
+
 internal extension DispatchWallTime {
     internal init(_ date: Date) {
         let secsSinceEpoch = date.timeIntervalSince1970
         let spec = timespec(
-            tv_sec: __darwin_time_t(secsSinceEpoch),
+            tv_sec: Int(secsSinceEpoch),
             tv_nsec: Int((secsSinceEpoch - floor(secsSinceEpoch)) * Double(NSEC_PER_SEC))
         )
         self.init(timespec: spec)
@@ -655,16 +643,21 @@ public enum Executor {
         }
         return false
     }
+
+
     // returns the previous Executor
     @discardableResult fileprivate static func setCurrentExecutor(_ e:Executor?) -> Executor? {
-        let threadDict = Thread.current.threadDictionary
         let key = GLOBAL_PARMS.CURRENT_EXECUTOR_PROPERTY
-        let current = threadDict[key] as? Box<Executor>
+        let current = Thread.current.threadDictionary[key] as? Box<Executor>
         if let ex = e {
-            threadDict.setObject(Box<Executor>(ex), forKey: key as NSCopying)
+            Thread.current.threadDictionary[key] = Box(ex)
         }
         else {
-            threadDict.removeObject(forKey: key)
+            #if os(Linux)
+                Thread.current.threadDictionary.removeValue(forKey: key)
+            #else
+                Thread.current.threadDictionary.removeObject(forKey: key)
+            #endif
         }
         return current?.value
     }
@@ -821,17 +814,16 @@ public enum Executor {
             return block
         case .stackCheckingImmediate:
             let b  = { () -> Void in
-                let threadDict = Thread.current.threadDictionary
-                let currentDepth = (threadDict[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] as? Int32) ??  0;
+                let currentDepth = (Thread.current.threadDictionary[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] as? Int32) ??  0;
                 if (currentDepth > GLOBAL_PARMS.STACK_CHECKING_MAX_DEPTH) {
                     let b = Executor.AsyncExecutor.callbackBlockFor(block)
                     b()
                 }
                 else {
                     let newDepth = currentDepth + 1;
-                    threadDict[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] = newDepth
+                    Thread.current.threadDictionary[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] = newDepth
                     block()
-                    threadDict[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] = currentDepth
+                    Thread.current.threadDictionary[GLOBAL_PARMS.STACK_CHECKING_PROPERTY] = currentDepth
                 }
             }
             return b

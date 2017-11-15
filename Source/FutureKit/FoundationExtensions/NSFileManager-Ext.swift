@@ -24,9 +24,6 @@
 
 import Foundation
 
-
-private var executorVarHandler = ExtensionVarHandlerFor<FileManager>()
-
 /** adds an Extension that automatically routes requests to Executor.Default (or some other configured Executor)
 
 */
@@ -35,7 +32,9 @@ extension FileManager {
     // is this a good idea?  
     // Should I make two versions of the all the APIs? One with and one without?
 
-/*    private var executor : Executor {
+/*
+     private static var executorVarHandler = ExtensionVarHandlerFor<FileManager>()
+     private var executor : Executor {
         get {
             return executorVarHandler.getValueFrom(self,defaultvalue: Executor.Default)
         }

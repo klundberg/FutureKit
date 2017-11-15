@@ -22,6 +22,8 @@
 // THE SOFTWARE.
 //
 
+#if !os(Linux)
+
 import Foundation
 
 private var _lockObjectHandler = ExtensionVarHandler()
@@ -65,12 +67,4 @@ extension NSObject {
     }
     
 }
-
-func SYNCHRONIZED<T>(_ lock: AnyObject, closure:  ()->T) -> T {
-    let lock_result = objc_sync_enter(lock)
-    assert(Int(lock_result) == OBJC_SYNC_SUCCESS,"Failed to lock object!")
-    let retVal: T = closure()
-    let exit_result = objc_sync_exit(lock)
-    assert(Int(exit_result) == OBJC_SYNC_SUCCESS,"Failed to release object!")
-    return retVal
-}
+#endif

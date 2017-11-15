@@ -81,36 +81,27 @@ public extension Error {
     var userInfo: [AnyHashable: Any] {
         return [:]
     }
+
+    private var cancellationError: ErrorTypeMightBeCancellation? {
+        return (self as? ErrorTypeMightBeCancellation)
+    }
     
     public var testForCancellation : Bool {
-        if Self.self is ErrorTypeMightBeCancellation.Type {
-            return (self as ErrorTypeMightBeCancellation).isCancellation
-        }
-        return false;
+        return cancellationError?.isCancellation == true
     }
 
     func toResult<T>() -> FutureResult<T> {
-        if Self.self is ErrorTypeMightBeCancellation.Type {
-            let errorType = self as ErrorTypeMightBeCancellation & Error
-            return errorType.toFutureResult()
+        if let error = cancellationError {
+            return error.toFutureResult()
         }
         return .fail(self)
     }
 
     func toCompletion<T>() -> Completion<T> {
-        if Self.self is ErrorTypeMightBeCancellation.Type {
-            let errorType = self as ErrorTypeMightBeCancellation & Error
-            return errorType.toFutureCompletion()
+        if let error = cancellationError {
+            return error.toFutureCompletion()
         }
         return .fail(self)
     }
 
-}
-
-
-extension NSError : NSErrorType {
-    convenience init(error : Error) {
-        let e = error as NSError
-        self.init(domain: e.domain, code: e.code, userInfo:e.userInfo)
-    }
 }

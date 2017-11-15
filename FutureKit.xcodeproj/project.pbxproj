@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0025F9F01FBCA4DC00C0E88E /* LinuxShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */; };
+		0025F9F11FBCA4DC00C0E88E /* LinuxShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */; };
+		0025F9F21FBCA4DC00C0E88E /* LinuxShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */; };
+		0025F9F31FBCA4DC00C0E88E /* LinuxShims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */; };
+		00BDCB131FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */; };
+		00BDCB141FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */; };
+		00BDCB151FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */; };
+		00BDCB161FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */; };
 		00C779871FA000570080E85B /* BlockBasedTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C7797F1F9FFF2B0080E85B /* BlockBasedTestCase.framework */; };
 		00C7798A1FA000640080E85B /* BlockBasedTestCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 00035CE01F50CFF80009B4E8 /* BlockBasedTestCase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		00C7798B1FA000690080E85B /* BlockBasedTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 00035CDE1F50CFF80009B4E8 /* BlockBasedTestCase.m */; };
@@ -186,6 +194,9 @@
 		00035CDE1F50CFF80009B4E8 /* BlockBasedTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockBasedTestCase.m; sourceTree = "<group>"; };
 		00035CE01F50CFF80009B4E8 /* BlockBasedTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockBasedTestCase.h; sourceTree = "<group>"; };
 		0025F9ED1FBBF29300C0E88E /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinuxShims.swift; sourceTree = "<group>"; };
+		0025F9F41FBCA52700C0E88E /* Dockerfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
+		00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classWithMethodsThatReturnFutures.swift; sourceTree = "<group>"; };
 		00C779671F9FFC730080E85B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00C7797F1F9FFF2B0080E85B /* BlockBasedTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlockBasedTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		090112C01BD851CB002EB82D /* Tuples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tuples.swift; sourceTree = "<group>"; };
@@ -386,6 +397,7 @@
 				0D7502BC1AE6B182009C3F63 /* NSObject-Ext-ThreadSafe.swift */,
 				0D7502BF1AE6B182009C3F63 /* OSAtomicInt.swift */,
 				090112C01BD851CB002EB82D /* Tuples.swift */,
+				00BDCB121FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -393,6 +405,7 @@
 		0DA41FA41ADAFE3D00B58B0B = {
 			isa = PBXGroup;
 			children = (
+				0025F9F41FBCA52700C0E88E /* Dockerfile */,
 				0025F9ED1FBBF29300C0E88E /* Package.swift */,
 				0DBB33421D0F973A0092BF7B /* Cancellation.MD */,
 				09059C431BB23E3C00555E26 /* FutureKit.podspec */,
@@ -445,6 +458,7 @@
 				0DA41FDA1ADAFEC500B58B0B /* Synchronization.swift */,
 				0D7502B91AE6B182009C3F63 /* Utils */,
 				0D7502B61AE6B114009C3F63 /* FoundationExtensions */,
+				0025F9EF1FBCA4DC00C0E88E /* LinuxShims.swift */,
 			);
 			name = FutureKit;
 			path = Source/FutureKit;
@@ -1011,9 +1025,11 @@
 				0DBB33171D0F91DA0092BF7B /* ErrorTypes.swift in Sources */,
 				0DBB33141D0F91DA0092BF7B /* Completion.swift in Sources */,
 				0DBB33181D0F91DA0092BF7B /* Executor.swift in Sources */,
+				00BDCB151FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */,
 				0DBB33371D0F91E40092BF7B /* FutureCache.swift in Sources */,
 				0DBB33161D0F91DA0092BF7B /* Promise.swift in Sources */,
 				0DBB331B1D0F91DA0092BF7B /* Synchronization.swift in Sources */,
+				0025F9F21FBCA4DC00C0E88E /* LinuxShims.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1037,9 +1053,11 @@
 				0DBB33201D0F91DB0092BF7B /* ErrorTypes.swift in Sources */,
 				0DBB331D1D0F91DB0092BF7B /* Completion.swift in Sources */,
 				0DBB33211D0F91DB0092BF7B /* Executor.swift in Sources */,
+				00BDCB161FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */,
 				0DBB33411D0F91E50092BF7B /* FutureCache.swift in Sources */,
 				0DBB331F1D0F91DB0092BF7B /* Promise.swift in Sources */,
 				0DBB33241D0F91DB0092BF7B /* Synchronization.swift in Sources */,
+				0025F9F31FBCA4DC00C0E88E /* LinuxShims.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,9 +1111,11 @@
 				0D7502CD1AE6B29B009C3F63 /* NSFileManager-Ext.swift in Sources */,
 				092794BC1BB25DD300DFB56D /* Completion.swift in Sources */,
 				0D7502C41AE6B182009C3F63 /* NSObject-Ext-ThreadSafe.swift in Sources */,
+				00BDCB131FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */,
 				0D75B9CC1CEB8307002452F6 /* FutureCache.swift in Sources */,
 				090112C11BD851CB002EB82D /* Tuples.swift in Sources */,
 				0DEA1BC91AE30885000E126F /* Promise.swift in Sources */,
+				0025F9F01FBCA4DC00C0E88E /* LinuxShims.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,9 +1139,11 @@
 				0D7502CE1AE6B29B009C3F63 /* NSFileManager-Ext.swift in Sources */,
 				092794BD1BB25DD300DFB56D /* Completion.swift in Sources */,
 				0D7502C51AE6B182009C3F63 /* NSObject-Ext-ThreadSafe.swift in Sources */,
+				00BDCB141FBCEC970021D18E /* classWithMethodsThatReturnFutures.swift in Sources */,
 				0D75B9CD1CEB8370002452F6 /* FutureCache.swift in Sources */,
 				090112C21BD851CB002EB82D /* Tuples.swift in Sources */,
 				0DEA1BD61AE30886000E126F /* Promise.swift in Sources */,
+				0025F9F11FBCA4DC00C0E88E /* LinuxShims.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

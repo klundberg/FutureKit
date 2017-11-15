@@ -91,7 +91,7 @@ class UnSafeMutableContainer<T> {
     }
 }
 
-
+#if !os(Linux)
 
 // Allocate a single static (module level var) ExtensionVarHandler for EACH extension variable you want to add 
 // to a class
@@ -287,6 +287,4 @@ func _someExampleStuffs() {
     
 }
 
-
-
-
+#endif

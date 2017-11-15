@@ -551,11 +551,11 @@ extension FutureResult : CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         switch self {
         case let .success(result):
-            return ".Success<\(T.self)>(\(result))"
+            return ".success<\(T.self)>(\(result))"
         case let .fail(error):
-            return ".Fail<\(T.self)>(\(error))"
+            return ".fail<\(T.self)>(\(error))"
         case .cancelled:
-            return ".Cancelled<\(T.self)>)"
+            return ".cancelled<\(T.self)>)"
         }
     }
     public var debugDescription: String {
@@ -569,7 +569,7 @@ extension FutureResult : CustomStringConvertible, CustomDebugStringConvertible {
     Sigh.
     */
     func debugQuickLookObject() -> AnyObject? {
-        return self.debugDescription as AnyObject?
+        return NSString(string: self.debugDescription)
     }
 }
 
@@ -652,7 +652,7 @@ extension CompletionType  {
     Sigh.
     */
     func debugQuickLookObject() -> AnyObject? {
-        return self.debugDescription as AnyObject?
+        return NSString(string: debugDescription)
     }
 }
 
