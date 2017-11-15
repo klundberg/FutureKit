@@ -23,8 +23,28 @@
 //
 
 import Foundation
-import CoreData
 import Dispatch
+
+/// Dummy class for linux support
+class LinuxManagedObjectContext: NSObject {
+
+    enum ConcurrencyType : UInt {
+        case privateQueueConcurrencyType
+        case mainQueueConcurrencyType
+    }
+
+    var concurrencyType: ConcurrencyType = .mainQueueConcurrencyType
+
+    func perform(_ block: @escaping () -> Void) {
+        DispatchQueue.main.async(execute: block)
+    }
+}
+
+#if os(Linux)
+typealias NSManagedObjectContext = LinuxManagedObjectContext
+#else
+import CoreData
+#endif
 
 final public class Box<T> {
     public let value: T
@@ -169,14 +189,6 @@ internal extension DispatchQueue {
     }
 }
 
-
-// remove in Swift 2.0
-
-extension qos_class_t {
-    var rawValue : UInt32 {
-        return self.rawValue
-    }
-}
 public enum Executor {
     case primary                    // use the default configured executor.  Current set to Immediate.
                                     // There are deep philosphical arguments about Immediate vs Async.
