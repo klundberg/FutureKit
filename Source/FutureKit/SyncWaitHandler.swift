@@ -46,7 +46,12 @@ class SyncWaitHandler<T>  {
     
     final func waitUntilCompleted(doMainQWarning warn: Bool = true) -> FutureResult<T> {
         self.condition.lock()
-        if (warn && Thread.isMainThread) {
+        #if os(Linux)
+            let isMainThread = false
+        #else
+            let isMainThread = Thread.isMainThread
+        #endif
+        if (warn && isMainThread) {
             if (self.value == nil) {
                 warnOperationOnMainThread()
             }

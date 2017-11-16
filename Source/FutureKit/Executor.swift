@@ -553,7 +553,12 @@ public enum Executor {
             if let current = getCurrentExecutor() {
                 return current
             }
-            if (Thread.isMainThread) {
+            #if os(Linux)
+                let isMainThread = false
+            #else
+                let isMainThread = Thread.isMainThread
+            #endif
+            if (isMainThread) {
                 return self.MainExecutor.real_executor
             }
             return .async
@@ -766,7 +771,12 @@ public enum Executor {
 
         case .mainImmediate:
             let newblock = { () -> Void in
-                if (Thread.isMainThread) {
+                #if os(Linux)
+                    let isMainThread = false
+                #else
+                    let isMainThread = Thread.isMainThread
+                #endif
+                if (isMainThread) {
                     block()
                 }
                 else {
