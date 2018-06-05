@@ -220,7 +220,7 @@ public enum Executor {
     
     case managedObjectContext(NSManagedObjectContext)   // block will run inside the managed object's context via context.performBlock()
     
-    case custom(((@escaping () -> Void) -> Void))         // Don't like any of these?  Bake your own Executor!
+    case custom(((() -> Void) -> Void))         // Don't like any of these?  Bake your own Executor!
     
     
     public var description : String {

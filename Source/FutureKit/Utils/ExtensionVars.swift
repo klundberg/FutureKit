@@ -216,7 +216,7 @@ public typealias ExtensionVarHandler = ExtensionVarHandlerFor<AnyObject>
 /// EXAMPLE FOLLOWS :
 
 class __ExampleClass : NSObject {
-    var regularVar : Int = 99
+    @objc var regularVar : Int = 99
     
 }
 private var exampleIntOptionalHandler = ExtensionVarHandler()
@@ -232,7 +232,7 @@ extension __ExampleClass {
             exampleIntOptionalHandler.setValueOn(self, value: newValue)
         }
     }
-    var intWithDefaultValue : Int {
+    @objc var intWithDefaultValue : Int {
         get {
             return exampleIntHandler.getValueFrom(self,defaultvalue: 55)
         }
@@ -240,7 +240,7 @@ extension __ExampleClass {
             exampleIntHandler.setValueOn(self, value: newValue)
         }
     }
-    var weakDelegatePtr : NSObject? {
+    @objc var weakDelegatePtr : NSObject? {
         get {
             return exampleDelegateHandler.getValueFrom(self)
         }
@@ -249,7 +249,7 @@ extension __ExampleClass {
             exampleDelegateHandler.setWeakValueOn(self, value: newDelegate)
         }
     }
-    var anyObjectOptional : AnyObject? {
+    @objc var anyObjectOptional : AnyObject? {
         get {
             return exampleAnyObjectHandler.getValueFrom(self)
         }
@@ -257,7 +257,7 @@ extension __ExampleClass {
             exampleAnyObjectHandler.setValueOn(self, value: newValue)
         }
     }
-    var dictionaryWithDefaultValues : [String : Int] {
+    @objc var dictionaryWithDefaultValues : [String : Int] {
         get {
             return exampleDictionaryHandler.getValueFrom(self,defaultvalue: ["Default" : 99, "Values" : 1])
         }

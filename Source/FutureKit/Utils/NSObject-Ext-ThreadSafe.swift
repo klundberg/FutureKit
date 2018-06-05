@@ -30,7 +30,7 @@ private var _lockObjectHandler = ExtensionVarHandler()
 
 extension NSObject {
     // This is technically the SAFER implementation of thread_safe_access
-    var lockObject : AnyObject {
+    @objc var lockObject : AnyObject {
         get {
             return _lockObjectHandler.getValueFrom(self, defaultvalueblock: { () -> AnyObject in
                     return NSObject()
